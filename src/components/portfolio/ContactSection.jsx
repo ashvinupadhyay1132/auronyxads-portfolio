@@ -164,6 +164,13 @@ export default function ContactSection({ id }) {
           </motion.div>
         </div>
       </div>
+
+      {/* Footer */}
+      <div className="absolute bottom-3 right-4 text-[10px] text-white/60 tracking-wide z-20">
+        © {new Date().getFullYear()} Developed by{" "}
+        <span className="font-semibold text-white">Ashvin Upadhyay</span>
+      </div>
+
     </section>
   );
 }
