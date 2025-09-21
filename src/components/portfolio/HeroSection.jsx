@@ -1,59 +1,107 @@
-import React from "react";
+import React, { useMemo, useCallback } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Play, Star, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// Memoized background orb component
+const BackgroundBlur = React.memo(({ className, delay }) => (
+  <div 
+    className={`absolute w-48 md:w-72 h-48 md:h-72 rounded-full mix-blend-multiply filter blur-3xl animate-pulse ${className}`} 
+    style={delay ? { animationDelay: delay } : undefined}
+  />
+));
+
+BackgroundBlur.displayName = 'BackgroundBlur';
+
+// Memoized floating icon component
+const FloatingIcon = React.memo(({ Icon, size, className, animate, transition }) => (
+  <motion.div
+    className={`absolute ${className}`}
+    animate={animate}
+    transition={transition}
+  >
+    <Icon size={size} className="md:w-[60px] md:h-[60px]" />
+  </motion.div>
+));
+
+FloatingIcon.displayName = 'FloatingIcon';
+
 export default function HeroSection({ id }) {
   const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, -250]);
-  const y2 = useTransform(scrollY, [0, 500], [0, -150]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  
+  const transforms = useMemo(() => ({
+    y1: useTransform(scrollY, [0, 500], [0, -250]),
+    opacity: useTransform(scrollY, [0, 300], [1, 0])
+  }), [scrollY]);
+
+  const floatingIconsConfig = useMemo(() => ({
+    code: {
+      size: 40,
+      className: "top-20 right-4 md:right-20 text-white/20",
+      animate: { rotate: 360, scale: [1, 1.2, 1] },
+      transition: { duration: 20, repeat: Infinity, ease: "linear" }
+    },
+    star: {
+      size: 30,
+      className: "bottom-40 left-4 md:left-20 text-white/20",
+      animate: { y: [-20, 20, -20] },
+      transition: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+    }
+  }), []);
+
+  const stats = useMemo(() => [
+    { number: "50+", label: "Projects Delivered" },
+    { number: "99%", label: "Client Satisfaction" },
+    { number: "24/7", label: "Support" }
+  ], []);
+
+  const handleStartProjectClick = useCallback(() => {
+    const target = document.getElementById('contact');
+    if (target) {
+      if (typeof window !== 'undefined' && window.lenis) {
+        window.lenis.scrollTo(target);
+      } else {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, []);
+
+  const handleViewProjectsClick = useCallback(() => {
+    const target = document.getElementById('portfolio');
+    if (target) {
+      if (typeof window !== 'undefined' && window.lenis) {
+        window.lenis.scrollTo(target);
+      } else {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, []);
 
   return (
     <section id={id} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900">
       {/* Animated background elements */}
       <motion.div 
         className="absolute inset-0 opacity-20"
-        style={{ y: y1 }}
+        style={{ y: transforms.y1 }}
       >
-        <div className="absolute top-20 left-10 w-48 md:w-72 h-48 md:h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse"></div>
-        <div className="absolute top-40 right-10 w-48 md:w-72 h-48 md:h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute bottom-20 left-1/3 w-48 md:w-72 h-48 md:h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl animate-pulse delay-2000"></div>
+        <BackgroundBlur className="top-20 left-10 bg-pink-500" />
+        <BackgroundBlur className="top-40 right-10 bg-yellow-500" delay="1000ms" />
+        <BackgroundBlur className="bottom-20 left-1/3 bg-indigo-500" delay="2000ms" />
       </motion.div>
 
       {/* Floating elements */}
-      <motion.div
-        className="absolute top-20 right-4 md:right-20 text-white/20"
-        animate={{
-          rotate: 360,
-          scale: [1, 1.2, 1]
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "linear"
-        }}
-      >
-        <Code size={40} className="md:w-[60px] md:h-[60px]" />
-      </motion.div>
-
-      <motion.div
-        className="absolute bottom-40 left-4 md:left-20 text-white/20"
-        animate={{
-          y: [-20, 20, -20]
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      >
-        <Star size={30} className="md:w-[40px] md:h-[40px]" />
-      </motion.div>
+      <FloatingIcon
+        Icon={Code}
+        {...floatingIconsConfig.code}
+      />
+      <FloatingIcon
+        Icon={Star}
+        {...floatingIconsConfig.star}
+      />
 
       <motion.div 
         className="relative z-10 text-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20"
-        style={{ opacity }}
+        style={{ opacity: transforms.opacity }}
       >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -107,7 +155,7 @@ export default function HeroSection({ id }) {
           <Button
             size="lg"
             className="w-full sm:w-auto bg-gradient-to-r from-pink-500 to-yellow-500 text-white border-0 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-full hover:shadow-2xl hover:shadow-pink-500/25 transition-all duration-300 group"
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={handleStartProjectClick}
           >
             Start Your Project
             <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
@@ -117,16 +165,7 @@ export default function HeroSection({ id }) {
             variant="outline"
             size="lg"
             className="w-full sm:w-auto border-white/30 text-white bg-white/10 backdrop-blur-sm px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-semibold rounded-full hover:bg-white/20 transition-all duration-300 group"
-            onClick={() => {
-              const target = document.getElementById('portfolio');
-              if (target) {
-                if (window.lenis) {
-                  window.lenis.scrollTo(target);
-                } else {
-                  target.scrollIntoView({ behavior: 'smooth' });
-                }
-              }
-            }}
+            onClick={handleViewProjectsClick}
           >
             <Play className="mr-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:scale-110 transition-transform" />
             View Projects
@@ -139,37 +178,14 @@ export default function HeroSection({ id }) {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
         >
-          <div className="text-center min-w-[80px]">
-            <div className="text-xl sm:text-2xl font-bold text-white">50+</div>
-            <div className="text-xs sm:text-sm">Projects Delivered</div>
-          </div>
-          <div className="text-center min-w-[80px]">
-            <div className="text-xl sm:text-2xl font-bold text-white">99%</div>
-            <div className="text-xs sm:text-sm">Client Satisfaction</div>
-          </div>
-          <div className="text-center min-w-[80px]">
-            <div className="text-xl sm:text-2xl font-bold text-white">24/7</div>
-            <div className="text-xs sm:text-sm">Support</div>
-          </div>
+          {stats.map((stat, index) => (
+            <div key={index} className="text-center min-w-[80px]">
+              <div className="text-xl sm:text-2xl font-bold text-white">{stat.number}</div>
+              <div className="text-xs sm:text-sm">{stat.label}</div>
+            </div>
+          ))}
         </motion.div>
       </motion.div>
-
-      {/* Scroll indicator */}
-      {/* <motion.div
-        className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 text-white/60"
-        animate={{
-          y: [0, 10, 0]
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      >
-        <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-white/30 rounded-full flex justify-center">
-          <div className="w-1 h-2 sm:h-3 bg-white/60 rounded-full mt-2"></div>
-        </div>
-      </motion.div> */}
     </section>
   );
 }

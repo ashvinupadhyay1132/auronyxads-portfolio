@@ -1,9 +1,45 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Star, Award, Users, Coffee, CheckCircle, Code, Zap, Heart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function AboutSection({ id }) {
+  // Memoize static data arrays to prevent recreation on every render
+  const features = useMemo(() => [
+    { icon: CheckCircle, title: "Custom Solutions", desc: "Tailored to your specific needs" },
+    { icon: Code, title: "Agile Development", desc: "Fast, iterative methodology" },
+    { icon: Heart, title: "24/7 Support", desc: "Always here when you need us" },
+    { icon: Users, title: "Transparent Process", desc: "Clear communication throughout" }
+  ], []);
+
+  const stats = useMemo(() => [
+    { icon: Users, number: "15+", label: "Expert Team Members", color: "from-blue-500 to-indigo-600" },
+    { icon: Award, number: "25+", label: "Industry Awards", color: "from-purple-500 to-pink-600" },
+    { icon: Star, number: "4.9/5", label: "Client Rating", color: "from-green-500 to-teal-600" },
+    { icon: Coffee, number: "∞", label: "Cups of Coffee", color: "from-orange-500 to-red-600" }
+  ], []);
+
+  const values = useMemo(() => [
+    {
+      icon: Star,
+      title: "Innovation",
+      description: "We stay ahead of the curve with the latest technologies and creative approaches to solve complex challenges.",
+      color: "from-indigo-500 to-purple-600"
+    },
+    {
+      icon: Users,
+      title: "Collaboration",
+      description: "We work closely with our clients as partners, ensuring transparency and alignment throughout every project.",
+      color: "from-green-500 to-teal-600"
+    },
+    {
+      icon: Award,
+      title: "Excellence",
+      description: "Quality is at the heart of everything we do. We deliver solutions that exceed expectations and drive results.",
+      color: "from-orange-500 to-red-600"
+    }
+  ], []);
+
   return (
     <section id={id} className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -61,16 +97,12 @@ export default function AboutSection({ id }) {
             transition={{ duration: 0.8 }}
             className="grid grid-cols-1 sm:grid-cols-2 gap-4"
           >
-            {[
-              { icon: CheckCircle, title: "Custom Solutions", desc: "Tailored to your specific needs" },
-              { icon: Code, title: "Agile Development", desc: "Fast, iterative methodology" },
-              { icon: Heart, title: "24/7 Support", desc: "Always here when you need us" },
-              { icon: Users, title: "Transparent Process", desc: "Clear communication throughout" }
-            ].map((feature, index) => (
+            {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
                 className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-xl border border-gray-100 hover:shadow-md transition-all duration-300 group"
               >
@@ -96,16 +128,12 @@ export default function AboutSection({ id }) {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          {[
-            { icon: Users, number: "15+", label: "Expert Team Members", color: "from-blue-500 to-indigo-600" },
-            { icon: Award, number: "25+", label: "Industry Awards", color: "from-purple-500 to-pink-600" },
-            { icon: Star, number: "4.9/5", label: "Client Rating", color: "from-green-500 to-teal-600" },
-            { icon: Coffee, number: "∞", label: "Cups of Coffee", color: "from-orange-500 to-red-600" }
-          ].map((stat, index) => (
+          {stats.map((stat, index) => (
             <motion.div
               key={stat.label}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               className="text-center group"
             >
@@ -130,30 +158,12 @@ export default function AboutSection({ id }) {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          {[
-            {
-              icon: Star,
-              title: "Innovation",
-              description: "We stay ahead of the curve with the latest technologies and creative approaches to solve complex challenges.",
-              color: "from-indigo-500 to-purple-600"
-            },
-            {
-              icon: Users,
-              title: "Collaboration",
-              description: "We work closely with our clients as partners, ensuring transparency and alignment throughout every project.",
-              color: "from-green-500 to-teal-600"
-            },
-            {
-              icon: Award,
-              title: "Excellence",
-              description: "Quality is at the heart of everything we do. We deliver solutions that exceed expectations and drive results.",
-              color: "from-orange-500 to-red-600"
-            }
-          ].map((value, index) => (
+          {values.map((value, index) => (
             <motion.div
               key={value.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               transition={{ delay: index * 0.2 }}
               whileHover={{ y: -10 }}
               className="group"

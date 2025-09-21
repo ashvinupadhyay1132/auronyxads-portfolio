@@ -1,52 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Star, MessageSquare } from "lucide-react";
-import { testimonials } from '../../data/testimonials'; //new added
+import { testimonials } from '../../data/testimonials';
 import { Card, CardContent } from "@/components/ui/card";
-
-// const testimonials = [
-//   {
-//     name: "Sarah Johnson",
-//     company: "CEO, Innovate Inc.",
-//     feedback: "Auronyxads transformed our online presence. Their team delivered a stunning website and a marketing strategy that doubled our leads in just three months. Truly exceptional!",
-//     rating: 5,
-//     avatar: "https://randomuser.me/api/portraits/women/44.jpg"
-//   },
-//   {
-//     name: "Michael Chen",
-//     company: "Founder, Tech Startup",
-//     feedback: "The mobile app they developed for us is flawless. It's intuitive, fast, and has received amazing feedback from our users. Their expertise in Flutter is top-notch.",
-//     rating: 5,
-//     avatar: "https://randomuser.me/api/portraits/men/32.jpg"
-//   },
-//   {
-//     name: "Emily Rodriguez",
-//     company: "Marketing Director, Lifestyle Co.",
-//     feedback: "Working with Auronyxads has been a game-changer. Their performance marketing campaigns are data-driven and have consistently delivered an impressive ROI.",
-//     rating: 5,
-//     avatar: "https://randomuser.me/api/portraits/women/68.jpg"
-//   },
-//   {
-//     name: "David Lee",
-//     company: "CTO, Global Solutions",
-//     feedback: "Auronyxads delivered a complex web application ahead of schedule and under budget. Their technical proficiency and project management were outstanding. Highly recommended!",
-//     rating: 5,
-//     avatar: "https://randomuser.me/api/portraits/men/47.jpg"
-//   },
-//   {
-//     name: "Jessica White",
-//     company: "Owner, Green Eats",
-//     feedback: "Our digital marketing efforts finally paid off thanks to Auronyxads. They helped us reach new customers and significantly boosted our online sales. Fantastic results!",
-//     rating: 4,
-//     avatar: "https://randomuser.me/api/portraits/women/70.jpg"
-//   },
-// ];
-
-// Create multiple copies for seamless infinite scroll
-const infiniteTestimonials = [...testimonials, ...testimonials, ...testimonials];
 
 export default function TestimonialsSection({ id }) {
   const [isPaused, setIsPaused] = useState(false);
+
+  // Memoize the infinite testimonials array to prevent recreation on every render
+  const infiniteTestimonials = useMemo(() => [...testimonials, ...testimonials], []);
+
+  // Calculate animation distance based on actual testimonials length
+  const animationDistance = useMemo(() => testimonials.length * (350 + 32), []);
 
   return (
     <section id={id} className="py-20 bg-gray-100 relative overflow-hidden">
@@ -71,17 +36,18 @@ export default function TestimonialsSection({ id }) {
 
         <div className="relative overflow-hidden">
           <div 
-            className="flex space-x-8 px-8 infinite-scroll"
+            className="flex space-x-8 px-8"
             style={{
+              width: 'max-content',
+              animation: `scroll 25s linear infinite`,
               animationPlayState: isPaused ? 'paused' : 'running',
-              width: 'max-content'
             }}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
             {infiniteTestimonials.map((testimonial, index) => (
               <motion.div
-                key={`${testimonial.name}-${index}`}
+                key={`${testimonial.name}-${testimonial.company}-${index}`}
                 className="flex-none w-[350px]"
                 whileHover={{ scale: 1.05, y: -10 }}
                 transition={{ duration: 0.3 }}
@@ -91,7 +57,11 @@ export default function TestimonialsSection({ id }) {
                     <MessageSquare className="absolute -top-4 -right-4 w-24 h-24 text-gray-200/50 group-hover:text-indigo-200/80 transition-all duration-500 transform group-hover:rotate-12" />
                     
                     <div className="flex items-center mb-6 relative z-10">
-                      <img loading="lazy" decoding="async" src={testimonial.avatar} alt={testimonial.name} className="w-16 h-16 rounded-full mr-4 border-4 border-white shadow-md" />
+                      <img 
+                        src={testimonial.avatar} 
+                        alt={`${testimonial.name} from ${testimonial.company}`} 
+                        className="w-16 h-16 rounded-full mr-4 border-4 border-white shadow-md" 
+                      />
                       <div>
                         <h4 className="font-bold text-lg text-gray-900">{testimonial.name}</h4>
                         <p className="text-sm text-gray-600">{testimonial.company}</p>
@@ -113,29 +83,15 @@ export default function TestimonialsSection({ id }) {
             ))}
           </div>
         </div>
-        
-        <motion.div
-          className="mt-8 text-center text-gray-500 text-sm"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-        >
-          {/* Hover to pause */}
-        </motion.div>
       </div>
 
       <style jsx>{`
-        .infinite-scroll {
-          animation: scroll 40s linear infinite;
-        }
-        
         @keyframes scroll {
-          0% {
+          from {
             transform: translateX(0);
           }
-          100% {
-            transform: translateX(-${(testimonials.length * 366)}px);
+          to {
+            transform: translateX(-${animationDistance}px);
           }
         }
       `}</style>
