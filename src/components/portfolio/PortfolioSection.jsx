@@ -21,29 +21,38 @@ const CategoryButton = React.memo(({ category, isActive, onClick }) => (
   </Button>
 ));
 
-// Memoized portfolio item footer component
-const ItemFooter = React.memo(({ demoLink, githubLink }) => (
-  <div className="flex items-center gap-4 pt-3 border-t border-gray-100 mt-auto">
-    <a
-      href={demoLink || "#"}
-      target="_blank"
-      rel="noreferrer"
-      className="inline-flex items-center gap-2 text-sm font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-2 rounded-xl shadow-md hover:scale-105 transition-transform"
-    >
-      <ExternalLink className="w-4 h-4" />
-      Live Demo
-    </a>
-    <a
-      href={githubLink || "#"}
-      target="_blank"
-      rel="noreferrer"
-      className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 hover:text-gray-900"
-    >
-      <Code className="w-4 h-4" />
-      Source
-    </a>
-  </div>
-));
+// Memoized portfolio item footer component with conditional rendering
+const ItemFooter = React.memo(({ demoLink, githubLink, category }) => {
+  // Don't show buttons for Digital Marketing and Performance Marketing categories
+  const shouldShowButtons = category !== "Digital Marketing" && category !== "Performance Marketing";
+  
+  if (!shouldShowButtons) {
+    return null;
+  }
+
+  return (
+    <div className="flex items-center gap-4 pt-3 border-t border-gray-100 mt-auto">
+      <a
+        href={demoLink || "#"}
+        target="_blank"
+        rel="noreferrer"
+        className="inline-flex items-center gap-2 text-sm font-bold text-white bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-2 rounded-xl shadow-md hover:scale-105 transition-transform"
+      >
+        <ExternalLink className="w-4 h-4" />
+        Live Demo
+      </a>
+      <a
+        href={githubLink || "#"}
+        target="_blank"
+        rel="noreferrer"
+        className="inline-flex items-center gap-2 text-sm font-bold text-gray-600 hover:text-gray-900"
+      >
+        <Code className="w-4 h-4" />
+        Source
+      </a>
+    </div>
+  );
+});
 
 // Memoized stat card component
 const StatCard = React.memo(({ value, label, color }) => (
@@ -122,7 +131,11 @@ const PortfolioCard = React.memo(({ item, index, animationVariant }) => {
 
           {renderTags}
 
-          <ItemFooter demoLink={item.demoLink} githubLink={item.githubLink} />
+          <ItemFooter 
+            demoLink={item.demoLink} 
+            githubLink={item.githubLink} 
+            category={item.category}
+          />
         </div>
       </motion.div>
     </motion.div>
