@@ -1,10 +1,10 @@
 export const testimonials = [
   {
-    name: "Sarah Johnson",
-    company: "CEO, Innovate Inc.",
+    name: "Mayur",
+    company: "CEO, NewsHunt Blog",
     feedback: "Auronyxads transformed our online presence. Their team delivered a stunning website and a marketing strategy that doubled our leads in just three months. Truly exceptional!",
     rating: 5,
-    avatar: "https://randomuser.me/api/portraits/women/44.jpg"
+    avatar: "https://randomuser.me/api/portraits/men/20.jpg"
   },
   {
     name: "Michael Chen",

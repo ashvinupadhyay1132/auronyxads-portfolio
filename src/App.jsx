@@ -80,7 +80,7 @@ export default function Portfolio() {
         "@type": "ProfessionalService",
         "name": "Auronyxads",
         "url": "https://auronyxads.org",
-        "logo": "/public/vite.svg",
+        "logo": "/public/logo.svg",
         "contactPoint": {
           "@type": "ContactPoint",
           "telephone": "+91-9284555378",

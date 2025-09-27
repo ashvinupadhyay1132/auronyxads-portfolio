@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+
+# Main sections - explicitly allow for clarity
+Allow: /about
+Allow: /services
+Allow: /portfolio
+Allow: /testimonials
+Allow: /contact
+
+# Static assets
+Allow: /images/
+Allow: /assets/
+Allow: /static/
+
+# Disallow admin or sensitive areas
+Disallow: /api/
+Disallow: /.env
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.github/
+Disallow: /src/
+
+# Sitemap location
+Sitemap: https://auronyxads.org/sitemap.xml
+
+# Crawl delay (optional - helps prevent server overload)
+Crawl-delay: 1
