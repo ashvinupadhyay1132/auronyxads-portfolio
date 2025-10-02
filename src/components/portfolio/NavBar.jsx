@@ -23,17 +23,33 @@ export default function NavBar() {
   );
 
   // Memoize scroll handler to prevent recreation
-  const scrollToSection = useCallback((sectionId) => {
-    const target = document.getElementById(sectionId);
-    if (target) {
-      if (typeof window !== 'undefined' && window.lenis) {
-        window.lenis.scrollTo(target, { offset: 0 });
-      } else {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+  // const scrollToSection = useCallback((sectionId) => {
+  //   const target = document.getElementById(sectionId);
+  //   if (target) {
+  //     if (typeof window !== 'undefined' && window.lenis) {
+  //       window.lenis.scrollTo(target, { offset: 0 });
+  //     } else {
+  //       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  //     }
+  //   }
+  //   setIsMobileMenuOpen(false);
+  // }, []);
+const scrollToSection = useCallback((sectionId) => {
+  const target = document.getElementById(sectionId);
+  if (target) {
+    if (typeof window !== 'undefined' && window.lenis) {
+      window.lenis.scrollTo(target, { offset: 0 });
+    } else {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-    setIsMobileMenuOpen(false);
-  }, []);
+
+    // 🔥 Update the URL hash without scrolling again
+    history.replaceState(null, '', `#${sectionId}`);
+  }
+  setIsMobileMenuOpen(false);
+}, []);
+
+
 
   useEffect(() => {
     let ticking = false;
