@@ -44,7 +44,7 @@ const scrollToSection = useCallback((sectionId) => {
     }
 
     // 🔥 Update the URL hash without scrolling again
-    history.replaceState(null, '', `#${sectionId}`);
+    history.replaceState(null, '', `${sectionId}`);
   }
   setIsMobileMenuOpen(false);
 }, []);
