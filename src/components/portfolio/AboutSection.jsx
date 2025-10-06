@@ -13,8 +13,8 @@ export default function AboutSection({ id }) {
   ], []);
 
   const stats = useMemo(() => [
-    { icon: Users, number: "15+", label: "Expert Team Members", color: "from-blue-500 to-indigo-600" },
-    { icon: Award, number: "25+", label: "Industry Awards", color: "from-purple-500 to-pink-600" },
+    { icon: Users, number: "10+", label: "Expert Team Members", color: "from-blue-500 to-indigo-600" },
+    { icon: Award, number: "5+", label: "Industry Awards", color: "from-purple-500 to-pink-600" },
     { icon: Star, number: "4.9/5", label: "Client Rating", color: "from-green-500 to-teal-600" },
     { icon: Coffee, number: "∞", label: "Cups of Coffee", color: "from-orange-500 to-red-600" }
   ], []);
