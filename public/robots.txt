@@ -2,31 +2,6 @@ User-agent: *
 # --- Full access to main site ---
 Allow: /
 
-# --- Explicitly allow key landing pages ---
-Allow: /home
-Allow: /about
-Allow: /services
-Allow: /portfolio
-Allow: /testimonials
-Allow: /contact
-
-# --- Allow static and media assets ---
-Allow: /images/
-Allow: /assets/
-Allow: /static/
-
-# --- Block only sensitive/internal directories ---
-Disallow: /api/
-Disallow: /node_modules/
-Disallow: /.git/
-Disallow: /.github/
-Disallow: /.env
-Disallow: /src/
-
-# --- Optional: prevent duplicate/parametered URLs ---
-Disallow: /*?*
-Disallow: /*&*
-
 # --- Sitemap location (critical for GSC indexing) ---
 Sitemap: https://auronyxads.org/sitemap.xml
 
