@@ -1,7 +1,3 @@
-User-agent: *
-# --- Full access to main site ---
-Allow: /
-
 # --- Sitemap location (critical for GSC indexing) ---
 Sitemap: https://auronyxads.org/sitemap.xml
 
