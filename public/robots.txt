@@ -1,28 +1,34 @@
 User-agent: *
+# --- Full access to main site ---
 Allow: /
 
-# Main sections - explicitly allow for clarity
+# --- Explicitly allow key landing pages ---
+Allow: /home
 Allow: /about
 Allow: /services
 Allow: /portfolio
 Allow: /testimonials
 Allow: /contact
 
-# Static assets
+# --- Allow static and media assets ---
 Allow: /images/
 Allow: /assets/
 Allow: /static/
 
-# Disallow admin or sensitive areas
+# --- Block only sensitive/internal directories ---
 Disallow: /api/
-Disallow: /.env
 Disallow: /node_modules/
 Disallow: /.git/
 Disallow: /.github/
+Disallow: /.env
 Disallow: /src/
 
-# Sitemap location
+# --- Optional: prevent duplicate/parametered URLs ---
+Disallow: /*?*
+Disallow: /*&*
+
+# --- Sitemap location (critical for GSC indexing) ---
 Sitemap: https://auronyxads.org/sitemap.xml
 
-# Crawl delay (optional - helps prevent server overload)
+# --- Optional: crawl control to protect your server ---
 Crawl-delay: 1
