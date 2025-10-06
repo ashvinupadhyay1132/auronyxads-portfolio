@@ -1,5 +1,0 @@
-# --- Sitemap location (critical for GSC indexing) ---
-Sitemap: https://auronyxads.org/sitemap.xml
-
-# --- Optional: crawl control to protect your server ---
-Crawl-delay: 1
