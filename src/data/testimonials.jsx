@@ -1,37 +1,42 @@
 export const testimonials = [
   {
-    name: "Mayur",
-    company: "CEO, NewsHunt Blog",
-    feedback: "Auronyxads transformed our online presence. Their team delivered a stunning website and a marketing strategy that doubled our leads in just three months. Truly exceptional!",
+    name: "Rahul Desai",
+    company: "Founder, TenderPro Solutions",
+    feedback:
+      "Auronyxads built our tender management app exactly the way government contractors operate. Real-time updates, secure infrastructure, and a clean UI have drastically improved engagement. Highly reliable and business-oriented development support.",
     rating: 5,
-    avatar: "https://randomuser.me/api/portraits/men/20.jpg"
+    avatar: "https://randomuser.me/api/portraits/men/51.jpg"
   },
   {
-    name: "Michael Chen",
-    company: "Founder, Tech Startup",
-    feedback: "The mobile app they developed for us is flawless. It's intuitive, fast, and has received amazing feedback from our users. Their expertise in Flutter is top-notch.",
+    name: "Sophia Turner",
+    company: "CEO, Hunt Media Group",
+    feedback:
+      "Our News Hunt blog platform received a complete overhaul. Their web team delivered a fast, SEO-optimized system that scaled traffic without a hiccup. Smart execution combined with technical depth.",
     rating: 5,
-    avatar: "https://randomuser.me/api/portraits/men/32.jpg"
+    avatar: "https://randomuser.me/api/portraits/women/65.jpg"
   },
   {
-    name: "Emily Rodriguez",
-    company: "Marketing Director, Lifestyle Co.",
-    feedback: "Working with Auronyxads has been a game-changer. Their performance marketing campaigns are data-driven and have consistently delivered an impressive ROI.",
+    name: "Antonio Ruiz",
+    company: "Product Lead, Calculate More Inc.",
+    feedback:
+      "The AuroraX team created a powerful all-in-one calculator website with flawless UX. Users love the functionality and simplicity. Their React and Next.js expertise shines through every feature.",
     rating: 5,
-    avatar: "https://randomuser.me/api/portraits/women/68.jpg"
+    avatar: "https://randomuser.me/api/portraits/men/33.jpg"
   },
   {
-    name: "David Lee",
-    company: "CTO, Global Solutions",
-    feedback: "Auronyxads delivered a complex web application ahead of schedule and under budget. Their technical proficiency and project management were outstanding. Highly recommended!",
+    name: "Laura Kim",
+    company: "Managing Director, EasyCV Careers",
+    feedback:
+      "Our resume builder needed to be sleek and highly practical. They delivered an ATS-friendly tool with customizable templates and real-time rendering. Their commitment to quality saved us months of guesswork.",
     rating: 5,
-    avatar: "https://randomuser.me/api/portraits/men/47.jpg"
+    avatar: "https://randomuser.me/api/portraits/women/43.jpg"
   },
   {
-    name: "Jessica White",
-    company: "Owner, Green Eats",
-    feedback: "Our digital marketing efforts finally paid off thanks to Auronyxads. They helped us reach new customers and significantly boosted our online sales. Fantastic results!",
+    name: "Mark Peterson",
+    company: "Head of Growth, StyleCorp Fashion",
+    feedback:
+      "Our digital expansion skyrocketed. Their strategic marketing campaigns amplified brand exposure and significantly increased conversions. Finally, a partner who understands both creativity and data.",
     rating: 4,
-    avatar: "https://randomuser.me/api/portraits/women/70.jpg"
-  },
+    avatar: "https://randomuser.me/api/portraits/men/70.jpg"
+  }
 ];
